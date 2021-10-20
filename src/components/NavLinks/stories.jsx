@@ -2,7 +2,7 @@ import { NavLinks } from '.';
 import links from './mock';
 
 export default {
-  title: 'NavLinks',
+  title: 'Main menu',
   component: NavLinks,
   args: {
     links: links,
