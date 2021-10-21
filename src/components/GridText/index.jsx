@@ -6,7 +6,6 @@ import { TextComponent } from '../TextComponent';
 import P from 'prop-types';
 
 export const GridText = ({
-  children,
   title,
   grid,
   description,
@@ -15,7 +14,7 @@ export const GridText = ({
   return (
     <SectionBackground background={background}>
       <Styled.Container>
-        <Heading size="huge" uppercase colorDark={!background}>
+        <Heading size="huge" uppercase colorDark={!background} as="h2">
           {title}
         </Heading>
         <TextComponent>{description}</TextComponent>
@@ -23,7 +22,7 @@ export const GridText = ({
           {grid.map(element => {
             return (
               <Styled.GridElement key={element.title}>
-                <Heading size="medium" colorDark={!background}>
+                <Heading size="medium" colorDark={!background} as="h3">
                   {element.title}
                 </Heading>
                 <TextComponent>{element.description}</TextComponent>
@@ -37,7 +36,6 @@ export const GridText = ({
 };
 
 GridText.propTypes = {
-  children: P.node.isRequired,
   background: P.bool,
   title: P.string.isRequired,
   description: P.string.isRequired,
