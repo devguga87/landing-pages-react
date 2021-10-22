@@ -4,7 +4,7 @@ import { Menu } from '../../components/Menu';
 import { Footer } from '../../components/Footer';
 import { GoTop } from '../../components/GoTop';
 
-export const Base = ({ children, links = [], logoData, footerHtml }) => {
+export const Base = ({ children, links, logoData, footerHtml }) => {
   return (
     <>
       <Menu links={links} logoData={logoData} />
