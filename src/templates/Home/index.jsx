@@ -3,6 +3,7 @@ import { Base } from '../Base';
 import { mockBase } from '../Base/mock';
 import { mapData } from '../../api/map-data';
 import { PageNotFound } from '../PageNotFound';
+import { Loading } from '../Loading';
 
 function Home() {
   const [data, setData] = useState([]);
@@ -15,7 +16,12 @@ function Home() {
         );
         const json = await data.json();
         const pageData = mapData(json);
-        setData(pageData[0]);
+        await new Promise(r => {
+          return setTimeout(() => {
+            setData(pageData[0]);
+            r();
+          }, 2000);
+        });
       } catch (e) {
         setData(undefined);
       }
@@ -28,7 +34,7 @@ function Home() {
   }
 
   if (data && !data.slug) {
-    return <h1>Carregando</h1>;
+    return <Loading />;
   }
 
   return <Base {...mockBase} />;
