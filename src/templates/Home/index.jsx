@@ -1,0 +1,32 @@
+import { useEffect, useState } from 'react';
+import { Base } from '../Base';
+import { mockBase } from '../Base/mock';
+import { mapData } from '../../api/map-data';
+
+function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await fetch(
+        'http://localhost:1337/pages/?slug=landing-page-2',
+      );
+      const json = await data.json();
+      const pageData = mapData(json);
+      setData(pageData[0]);
+    };
+    load();
+  }, []);
+
+  if (data === undefined) {
+    return <h1>Pagina nao encontrada</h1>;
+  }
+
+  if (data && !data.slug) {
+    return <h1>Carregando</h1>;
+  }
+
+  return <Base {...mockBase} />;
+}
+
+export default Home;
