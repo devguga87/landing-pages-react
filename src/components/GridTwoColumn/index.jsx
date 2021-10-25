@@ -9,9 +9,10 @@ export const GridTwoColumn = ({
   text,
   srcImg,
   background = 'false',
+  sectionId = '',
 }) => {
   return (
-    <SectionBackground background={background}>
+    <SectionBackground background={background} sectionId={sectionId}>
       <Styled.Container>
         <Styled.TextContainer>
           <Heading uppercase colorDark={!background} as="h2">
@@ -32,4 +33,5 @@ GridTwoColumn.propTypes = {
   text: P.string.isRequired,
   srcImg: P.string.isRequired,
   background: P.bool,
+  sectionId: P.string,
 };
