@@ -45,6 +45,7 @@ exports[`<GridTwoColumn/> should render 1`] = `
   max-width: 120rem;
   margin: 0 auto;
   padding: 3.2rem;
+  width: 100%;
 }
 
 @media (max-width:768px) {
@@ -69,6 +70,7 @@ exports[`<GridTwoColumn/> should render 1`] = `
 <div>
   <section
     class="c0"
+    id=""
   >
     <div
       class="c1"
