@@ -1,26 +1,28 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { Base } from '../Base';
-import { mockBase } from '../Base/mock';
 import { mapData } from '../../api/map-data';
+
+import config from '../../config';
+
 import { PageNotFound } from '../PageNotFound';
 import { Loading } from '../Loading';
 import { GridTwoColumn } from '../../components/GridTwoColumn';
 import { GridContent } from '../../components/GridContent';
 import { GridText } from '../../components/GridText';
 import { GridImage } from '../../components/GridImage';
-import { useLocation } from 'react-router-dom';
 
 function Home() {
   const [data, setData] = useState([]);
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     const pathname = location.pathname.replace(/[^a-z0-9-_]/gi, '');
-    const slug = pathname ? pathname : 'landing-page-2';
+    const slug = pathname ? pathname : config.defaultSlug;
     const load = async () => {
       try {
-        const data = await fetch('http://localhost:1337/pages/?slug=' + slug);
+        const data = await fetch(config.url + slug);
         const json = await data.json();
         const pageData = mapData(json);
         setData(pageData[0]);
@@ -30,6 +32,20 @@ function Home() {
     };
     load();
   }, [location]);
+
+  useEffect(() => {
+    if (data === undefined) {
+      document.title = `Página não encontrada | ${config.siteName}`;
+    }
+
+    if (data && !data.slug) {
+      document.title = `Carregando... | ${config.siteName}`;
+    }
+
+    if (data && data.title) {
+      document.title = `${data.title} | ${config.siteName}`;
+    }
+  }, [data]);
 
   if (data === undefined) {
     return <PageNotFound />;
